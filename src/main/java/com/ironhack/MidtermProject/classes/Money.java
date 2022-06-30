@@ -1,16 +1,18 @@
-package com.ironhack.MidtermProject.model;
+package com.ironhack.MidtermProject.classes;
 
+import javax.persistence.Embeddable;
 import java.math.RoundingMode;
 import java.math.BigDecimal;
 import java.util.Currency;
 
+@Embeddable
 public class Money {
-
     private static final Currency USD = Currency.getInstance("USD");
     private static final RoundingMode DEFAULT_ROUNDING = RoundingMode.HALF_EVEN;
 
     private final Currency currency;
     private BigDecimal amount;
+
 
     /**
      * Class constructor specifying amount, currency, and rounding
@@ -71,3 +73,4 @@ public class Money {
         return getCurrency().getSymbol() + " " + getAmount();
     }
 }
+

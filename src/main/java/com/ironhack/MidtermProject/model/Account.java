@@ -8,6 +8,7 @@ PRIMARY KEY (Account_id),
 FOREIGN KEY(Account_Types_id REFERENCES Account_types(Account_Types_id));
  */
 
+import com.ironhack.MidtermProject.classes.Money;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -22,27 +23,24 @@ public abstract class Account {
 
     private Date dateOpened;
 
-    private Double balance;
-
     private String PrimaryOwner;
-
     private String SecondaryOwner;
-
-
-   @OneToOne
-   @JoinColumn(name="Account_Types_id")
-   private AccountTypesId accountTypesId;
-
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
+            @AttributeOverride(name = "currency",column = @Column(name = "currency_amount"))
+    })
+    private Money balance;
 
     //CONSTRUCTORS
-    public Account( String accountsName, Date dateOpened, Double balance, String primaryOwner,
-                   String secondaryOwner, AccountTypesId accountTypesId) {
+    public Account(Integer accountId, String accountsName, Date dateOpened, String primaryOwner,
+                   String secondaryOwner, Money balance) {
+        this.accountId = accountId;
         this.accountsName = accountsName;
         this.dateOpened = dateOpened;
-        this.balance = balance;
         PrimaryOwner = primaryOwner;
         SecondaryOwner = secondaryOwner;
-        this.accountTypesId = accountTypesId;
+        this.balance = balance;
     }
 
     public Account() {
@@ -50,7 +48,6 @@ public abstract class Account {
 
 
     //GETTERS & SETTERS
-
     public Integer getAccountId() {
         return accountId;
     }
@@ -75,14 +72,6 @@ public abstract class Account {
         this.dateOpened = dateOpened;
     }
 
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
     public String getPrimaryOwner() {
         return PrimaryOwner;
     }
@@ -99,12 +88,12 @@ public abstract class Account {
         SecondaryOwner = secondaryOwner;
     }
 
-    public AccountTypesId getAccountTypesId() {
-        return accountTypesId;
+    public Money getBalance() {
+        return balance;
     }
 
-    public void setAccountTypesId(AccountTypesId accountTypesId) {
-        this.accountTypesId = accountTypesId;
+    public void setBalance(Money balance) {
+        this.balance = balance;
     }
 }
 

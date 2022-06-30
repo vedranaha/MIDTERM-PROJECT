@@ -9,50 +9,19 @@ FOREIGN KEY(userTypeId) REFERENCES User_types(userTypeId));
 import javax.persistence.*;
 
 @Entity
-public class Admins {
+@PrimaryKeyJoinColumn(name="user_id")
+public class Admins extends User{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer adminsId;
-
-    private String adminsName;
-
-    @OneToOne
-    @JoinColumn(name="User_Types_id")
-    private UserTypesId userTypesId;
 
     //CONSTRUCTORS
-    public Admins(Integer adminsId, String adminsName, UserTypesId userTypesId) {
-        this.adminsId = adminsId;
-        this.adminsName = adminsName;
-        this.userTypesId = userTypesId;
+    public Admins(Integer userId, String name, Integer adminsId) {
+        super(userId, name);
+
     }
 
     public Admins() {
     }
 
     //GETTERS & SETTERS
-    public Integer getAdminsId() {
-        return adminsId;
-    }
 
-    public UserTypesId getUserTypesId() {
-        return userTypesId;
-    }
-
-    public void setUserTypesId(UserTypesId userTypesId) {
-        this.userTypesId = userTypesId;
-    }
-
-    public void setAdminsId(Integer adminsId) {
-        this.adminsId = adminsId;
-    }
-
-    public String getAdminsName() {
-        return adminsName;
-    }
-
-    public void setAdminsName(String adminsName) {
-        this.adminsName = adminsName;
-    }
 }

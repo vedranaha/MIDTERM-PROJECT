@@ -13,60 +13,37 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class AccountHolders {
+@PrimaryKeyJoinColumn(name="user_id")
+public class AccountHolders extends User{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer accountHoldersId;
-
-    private String accountHoldersName;
+    private Date dateOfBirth;
 
     private String primaryAddress;
 
     private String mailingAddress;
 
-    @OneToOne
-    @JoinColumn(name="User_Types_id")
-    private UserTypesId userTypesId;
-
-    public AccountHolders(Integer accountHoldersId, String accountHoldersName, String primaryAddress,
-                          String mailingAddress, UserTypesId userTypesId) {
-        this.accountHoldersId = accountHoldersId;
-        this.accountHoldersName = accountHoldersName;
+    //CONSTRUCTORS
+    public AccountHolders(Integer userId, String name, Date dateOfBirth, String primaryAddress, String mailingAddress) {
+        super(userId, name);
+        this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
         this.mailingAddress = mailingAddress;
-        this.userTypesId = userTypesId;
     }
 
     public AccountHolders() {
     }
 
-    public Integer getAccountHoldersId() {
-        return accountHoldersId;
+    //GETTERS & SETTERS
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setAccountHoldersId(Integer accountHoldersId) {
-        this.accountHoldersId = accountHoldersId;
-    }
-
-    public String getAccountHoldersName() {
-        return accountHoldersName;
-    }
-
-    public void setAccountHoldersName(String accountHoldersName) {
-        this.accountHoldersName = accountHoldersName;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getPrimaryAddress() {
         return primaryAddress;
-    }
-
-    public UserTypesId getUserTypesId() {
-        return userTypesId;
-    }
-
-    public void setUserTypesId(UserTypesId userTypesId) {
-        this.userTypesId = userTypesId;
     }
 
     public void setPrimaryAddress(String primaryAddress) {

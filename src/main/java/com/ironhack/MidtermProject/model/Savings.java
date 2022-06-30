@@ -16,6 +16,8 @@ PRIMARY KEY (Savings_id),
 FOREIGN KEY(Account_Types_code) REFERENCES Account_types(Account_Types_code));
 */
 
+import com.ironhack.MidtermProject.classes.Money;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
@@ -25,8 +27,12 @@ import java.util.Date;
 public class Savings extends Account{
 
     private BigInteger secretKey;
-
-    private Double minimumBalance;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
+            @AttributeOverride(name = "currency",column = @Column(name = "currency_amount"))
+    })
+    private Money minimumBalance;
 
     private Double penaltyFee;
 
@@ -36,35 +42,21 @@ public class Savings extends Account{
 
     private String status;
 
-    @OneToOne
-    @JoinColumn(name="Account_Types_id")
-    private AccountTypesId accountTypesId;
 
     //CONSTRUCTORS
-    public Savings(String accountsName, Date dateOpened, Double balance, String primaryOwner, String secondaryOwner,
-                   AccountTypesId accountTypesId, BigInteger secretKey, Double minimumBalance, Double penaltyFee,
-                   Double interestRate, Date creationDate, String status, AccountTypesId accountTypesId1) {
-        super(accountsName, dateOpened, balance, primaryOwner, secondaryOwner, accountTypesId);
+    public Savings(Integer accountId, String accountsName, Date dateOpened, String primaryOwner, String secondaryOwner,
+                   Money balance, BigInteger secretKey, Money minimumBalance, Double penaltyFee, Double interestRate,
+                   Date creationDate, String status) {
+        super(accountId, accountsName, dateOpened, primaryOwner, secondaryOwner, balance);
         this.secretKey = secretKey;
         this.minimumBalance = minimumBalance;
         this.penaltyFee = penaltyFee;
         this.interestRate = interestRate;
         this.creationDate = creationDate;
         this.status = status;
-        this.accountTypesId = accountTypesId1;
     }
 
     public Savings() {
-    }
-
-    @Override
-    public AccountTypesId getAccountTypesId() {
-        return accountTypesId;
-    }
-
-    @Override
-    public void setAccountTypesId(AccountTypesId accountTypesId) {
-        this.accountTypesId = accountTypesId;
     }
 
     //GETTERS & SETTERS
@@ -76,11 +68,11 @@ public class Savings extends Account{
         this.secretKey = secretKey;
     }
 
-    public Double getMinimumBalance() {
+    public Money getMinimumBalance() {
         return minimumBalance;
     }
 
-    public void setMinimumBalance(Double minimumBalance) {
+    public void setMinimumBalance(Money minimumBalance) {
         this.minimumBalance = minimumBalance;
     }
 

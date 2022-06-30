@@ -13,8 +13,8 @@ PRIMARY KEY (CreditCard_id),
 FOREIGN KEY(Account_Types_code) REFERENCES Account_types(Account_Types_code));
  */
 
+import com.ironhack.MidtermProject.classes.Money;
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
@@ -26,19 +26,14 @@ public class CreditCard extends Account {
 
     private Double interestRate;
 
-    @OneToOne
-    @JoinColumn(name="Account_Types_id")
-    private AccountTypesId accountTypesId;
-
     //CONSTRUCTORS
-    public CreditCard(String accountsName, Date dateOpened, Double balance, String primaryOwner, String secondaryOwner,
-                      AccountTypesId accountTypesId, Double creditLimit, Double penaltyFee, Double interestRate,
-                      AccountTypesId accountTypesId1) {
-        super(accountsName, dateOpened, balance, primaryOwner, secondaryOwner, accountTypesId);
+    public CreditCard(Integer accountId, String accountsName, Date dateOpened, String primaryOwner,
+                      String secondaryOwner, Money balance, Double creditLimit, Double penaltyFee,
+                      Double interestRate) {
+        super(accountId, accountsName, dateOpened, primaryOwner, secondaryOwner, balance);
         this.creditLimit = creditLimit;
         this.penaltyFee = penaltyFee;
         this.interestRate = interestRate;
-        this.accountTypesId = accountTypesId1;
     }
 
     public CreditCard() {
@@ -55,16 +50,6 @@ public class CreditCard extends Account {
 
     public Double getPenaltyFee() {
         return penaltyFee;
-    }
-
-    @Override
-    public AccountTypesId getAccountTypesId() {
-        return accountTypesId;
-    }
-
-    @Override
-    public void setAccountTypesId(AccountTypesId accountTypesId) {
-        this.accountTypesId = accountTypesId;
     }
 
     public void setPenaltyFee(Double penaltyFee) {
