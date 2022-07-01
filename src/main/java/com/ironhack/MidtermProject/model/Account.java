@@ -11,6 +11,7 @@ FOREIGN KEY(Account_Types_id REFERENCES Account_types(Account_Types_id));
 import com.ironhack.MidtermProject.classes.Money;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,8 +24,14 @@ public abstract class Account {
 
     private Date dateOpened;
 
-    private String PrimaryOwner;
-    private String SecondaryOwner;
+    @ManyToOne
+    @JoinColumn(name = "primary_owner_id")
+    private AccountHolders primaryOwner;
+
+    @ManyToOne
+    @JoinColumn(name = "secondary_owner_id")
+    private AccountHolders secondaryOwner;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
@@ -33,19 +40,20 @@ public abstract class Account {
     private Money balance;
 
     //CONSTRUCTORS
-    public Account(Integer accountId, String accountsName, Date dateOpened, String primaryOwner,
-                   String secondaryOwner, Money balance) {
+
+
+    public Account(Integer accountId, String accountsName, Date dateOpened, AccountHolders primaryOwner,
+                   AccountHolders secondaryOwner, Money balance) {
         this.accountId = accountId;
         this.accountsName = accountsName;
         this.dateOpened = dateOpened;
-        PrimaryOwner = primaryOwner;
-        SecondaryOwner = secondaryOwner;
+        this.primaryOwner = primaryOwner;
+        this.secondaryOwner = secondaryOwner;
         this.balance = balance;
     }
 
     public Account() {
     }
-
 
     //GETTERS & SETTERS
     public Integer getAccountId() {
@@ -72,20 +80,20 @@ public abstract class Account {
         this.dateOpened = dateOpened;
     }
 
-    public String getPrimaryOwner() {
-        return PrimaryOwner;
+    public AccountHolders getPrimaryOwner() {
+        return primaryOwner;
     }
 
-    public void setPrimaryOwner(String primaryOwner) {
-        PrimaryOwner = primaryOwner;
+    public void setPrimaryOwner(AccountHolders primaryOwner) {
+        this.primaryOwner = primaryOwner;
     }
 
-    public String getSecondaryOwner() {
-        return SecondaryOwner;
+    public AccountHolders getSecondaryOwner() {
+        return secondaryOwner;
     }
 
-    public void setSecondaryOwner(String secondaryOwner) {
-        SecondaryOwner = secondaryOwner;
+    public void setSecondaryOwner(AccountHolders secondaryOwner) {
+        this.secondaryOwner = secondaryOwner;
     }
 
     public Money getBalance() {

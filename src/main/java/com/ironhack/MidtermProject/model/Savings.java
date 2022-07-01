@@ -44,9 +44,9 @@ public class Savings extends Account{
 
 
     //CONSTRUCTORS
-    public Savings(Integer accountId, String accountsName, Date dateOpened, String primaryOwner, String secondaryOwner,
-                   Money balance, BigInteger secretKey, Money minimumBalance, Double penaltyFee, Double interestRate,
-                   Date creationDate, String status) {
+    public Savings(Integer accountId, String accountsName, Date dateOpened, AccountHolders primaryOwner,
+                   AccountHolders secondaryOwner, Money balance, BigInteger secretKey, Money minimumBalance,
+                   Double penaltyFee, Double interestRate, Date creationDate, String status) {
         super(accountId, accountsName, dateOpened, primaryOwner, secondaryOwner, balance);
         this.secretKey = secretKey;
         this.minimumBalance = minimumBalance;

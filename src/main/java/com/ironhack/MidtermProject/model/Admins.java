@@ -22,6 +22,4 @@ public class Admins extends User{
     public Admins() {
     }
 
-    //GETTERS & SETTERS
-
 }

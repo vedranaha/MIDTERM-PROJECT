@@ -11,16 +11,17 @@ FOREIGN KEY(UserTypeId) REFERENCES UserTypes(UserTypeId));
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @PrimaryKeyJoinColumn(name="user_id")
 public class AccountHolders extends User{
-
     private Date dateOfBirth;
 
     private String primaryAddress;
 
     private String mailingAddress;
+
 
     //CONSTRUCTORS
     public AccountHolders(Integer userId, String name, Date dateOfBirth, String primaryAddress, String mailingAddress) {
@@ -29,7 +30,6 @@ public class AccountHolders extends User{
         this.primaryAddress = primaryAddress;
         this.mailingAddress = mailingAddress;
     }
-
     public AccountHolders() {
     }
 
@@ -37,7 +37,6 @@ public class AccountHolders extends User{
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
-
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }

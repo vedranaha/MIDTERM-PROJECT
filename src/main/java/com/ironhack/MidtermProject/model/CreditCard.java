@@ -27,8 +27,8 @@ public class CreditCard extends Account {
     private Double interestRate;
 
     //CONSTRUCTORS
-    public CreditCard(Integer accountId, String accountsName, Date dateOpened, String primaryOwner,
-                      String secondaryOwner, Money balance, Double creditLimit, Double penaltyFee,
+    public CreditCard(Integer accountId, String accountsName, Date dateOpened, AccountHolders primaryOwner,
+                      AccountHolders secondaryOwner, Money balance, Double creditLimit, Double penaltyFee,
                       Double interestRate) {
         super(accountId, accountsName, dateOpened, primaryOwner, secondaryOwner, balance);
         this.creditLimit = creditLimit;
