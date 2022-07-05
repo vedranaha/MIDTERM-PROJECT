@@ -2,7 +2,6 @@ package com.ironhack.MidtermProject.model;
 
 /*
 CREATE TABLE Savings(
-Account_Types_code VARCHAR(15),
 Savings_id INT NOT NULL AUTO_INCREMENT ,
 Balance DOUBLE,
 secretKey BIGINT,
@@ -13,98 +12,80 @@ PenaltyFee DOUBLE,
 InterestRate DOUBLE,
 CreationDate DATE,
 PRIMARY KEY (Savings_id),
-FOREIGN KEY(Account_Types_code) REFERENCES Account_types(Account_Types_code));
 */
 
 import com.ironhack.MidtermProject.classes.Money;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.util.Date;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
-@PrimaryKeyJoinColumn (name="account_id")
+@PrimaryKeyJoinColumn(name = "id")
 public class Savings extends Account{
-
-    private BigInteger secretKey;
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
-            @AttributeOverride(name = "currency",column = @Column(name = "currency_amount"))
+            @AttributeOverride(name = "amount", column = @Column(name = "minimum_balance_amount")),
+            @AttributeOverride(name = "currency", column = @Column(name = "minimum_balance_currency"))
     })
-    private Money minimumBalance;
+    private Money minimumBalance; //default 1000, min 100 when instantiated
 
-    private Double penaltyFee;
+    @DecimalMax(value = "0.5", message = "The interest rate can not be lower than 0.5")
+    private BigDecimal interestRate; //Default 0.0025, max 0.5
 
-    private Double interestRate;
+    private LocalDate lastTimeInterestApplied;
 
-    private Date creationDate;
-
-    private String status;
-
-
-    //CONSTRUCTORS
-    public Savings(Integer accountId, String accountsName, Date dateOpened, AccountHolders primaryOwner,
-                   AccountHolders secondaryOwner, Money balance, BigInteger secretKey, Money minimumBalance,
-                   Double penaltyFee, Double interestRate, Date creationDate, String status) {
-        super(accountId, accountsName, dateOpened, primaryOwner, secondaryOwner, balance);
-        this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
-        this.penaltyFee = penaltyFee;
-        this.interestRate = interestRate;
-        this.creationDate = creationDate;
-        this.status = status;
-    }
-
+    // CONSTRUCTORS
     public Savings() {
+        this.minimumBalance = new Money(new BigDecimal(1000));
+        this.interestRate = new BigDecimal("0.0025");
+        this.lastTimeInterestApplied = this.creationDate;
     }
 
-    //GETTERS & SETTERS
-    public BigInteger getSecretKey() {
-        return secretKey;
+    public Savings(Money balance, AccountHolder primaryOwner, String secretKey, Money minimumBalance,
+                   BigDecimal interestRate, LocalDate creationDate) {
+        super(balance, primaryOwner, secretKey, creationDate);
+        this.minimumBalance = minimumBalance;
+        this.interestRate = interestRate;
+        this.lastTimeInterestApplied = this.creationDate;
     }
 
-    public void setSecretKey(BigInteger secretKey) {
-        this.secretKey = secretKey;
-    }
+    public Savings(Money balance, AccountHolder primaryOwner, AccountHolder secondaryOwner,
+                   String secretKey, Money minimumBalance, BigDecimal interestRate, LocalDate creationDate) {
+        super(balance, primaryOwner, secondaryOwner, secretKey, creationDate);
+        this.minimumBalance = minimumBalance;
+        this.interestRate = interestRate;
+        this.lastTimeInterestApplied = this.creationDate;
+}
 
+    // GETTERS & SETTERS
     public Money getMinimumBalance() {
         return minimumBalance;
     }
 
-    public void setMinimumBalance(Money minimumBalance) {
-        this.minimumBalance = minimumBalance;
-    }
-
-    public Double getPenaltyFee() {
-        return penaltyFee;
-    }
-
-    public void setPenaltyFee(Double penaltyFee) {
-        this.penaltyFee = penaltyFee;
-    }
-
-    public Double getInterestRate() {
+    public BigDecimal getInterestRate() {
         return interestRate;
     }
 
-    public void setInterestRate(Double interestRate) {
-        this.interestRate = interestRate;
+    public LocalDate getLastTimeInterestApplied() {
+        return lastTimeInterestApplied;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public void setLastTimeInterestApplied(LocalDate lastTimeInterestApplied) {
+        this.lastTimeInterestApplied = lastTimeInterestApplied;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    // Deduct penalty fee if balance is below minimum
+    @Override
+    public void setBalance(Money balance) {
+        super.setBalance(balance);
+        Money actualBalance = new Money(getBalance().getAmount(),getBalance().getCurrency());
+        actualBalance.decreaseAmount(minimumBalance);
+        if (actualBalance.getAmount().compareTo(BigDecimal.valueOf(0)) < 0){
+            balance.decreaseAmount(super.getPenaltyFee());
+        }
     }
 }
