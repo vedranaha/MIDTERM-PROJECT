@@ -1,4 +1,4 @@
-package com.ironhack.MidtermProject.repository.service.impl;
+package com.ironhack.MidtermProject.service.impl;
 
 import com.ironhack.MidtermProject.model.User;
 import com.ironhack.MidtermProject.repository.UserRepository;
@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import security.CustomUserDetails;
+import com.ironhack.MidtermProject.security.CustomUserDetails;
 
 import java.util.Optional;
 

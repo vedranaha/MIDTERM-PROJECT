@@ -1,4 +1,4 @@
-package security;
+package com.ironhack.MidtermProject.security;
 
 import com.ironhack.MidtermProject.model.User;
 import org.springframework.security.core.GrantedAuthority;

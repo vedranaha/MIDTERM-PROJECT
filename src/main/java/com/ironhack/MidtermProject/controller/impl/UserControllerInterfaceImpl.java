@@ -13,12 +13,12 @@ import com.ironhack.MidtermProject.repository.AccountHolderRepository;
 import com.ironhack.MidtermProject.repository.AdminRepository;
 import com.ironhack.MidtermProject.repository.ThirdPartyRepository;
 import com.ironhack.MidtermProject.repository.UserRepository;
-import com.ironhack.MidtermProject.repository.service.interfaces.UserService;
+import com.ironhack.MidtermProject.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import security.CustomUserDetails;
+import com.ironhack.MidtermProject.security.CustomUserDetails;
 
 import javax.validation.Valid;
 import java.sql.Date;

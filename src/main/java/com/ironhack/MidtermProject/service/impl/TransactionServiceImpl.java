@@ -1,4 +1,4 @@
-package com.ironhack.MidtermProject.repository.service.impl;
+package com.ironhack.MidtermProject.service.impl;
 
 import com.ironhack.MidtermProject.classes.Money;
 import com.ironhack.MidtermProject.model.Account;
@@ -6,7 +6,7 @@ import com.ironhack.MidtermProject.model.Transaction;
 import com.ironhack.MidtermProject.repository.AccountRepository;
 import com.ironhack.MidtermProject.repository.ThirdPartyRepository;
 import com.ironhack.MidtermProject.repository.TransactionRepository;
-import com.ironhack.MidtermProject.repository.service.interfaces.TransactionService;
+import com.ironhack.MidtermProject.service.interfaces.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

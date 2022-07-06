@@ -1,9 +1,9 @@
-package com.ironhack.MidtermProject.repository.service.impl;
+package com.ironhack.MidtermProject.service.impl;
 
 import com.ironhack.MidtermProject.classes.Money;
 import com.ironhack.MidtermProject.model.*;
 import com.ironhack.MidtermProject.repository.*;
-import com.ironhack.MidtermProject.repository.service.interfaces.AccountService;
+import com.ironhack.MidtermProject.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

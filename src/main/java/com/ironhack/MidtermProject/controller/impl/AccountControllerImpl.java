@@ -9,13 +9,13 @@ import com.ironhack.MidtermProject.controller.interfaces.AccountController;
 import com.ironhack.MidtermProject.model.*;
 import com.ironhack.MidtermProject.repository.AccountRepository;
 import com.ironhack.MidtermProject.repository.StudentCheckingRepository;
-import com.ironhack.MidtermProject.repository.service.interfaces.AccountService;
+import com.ironhack.MidtermProject.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import security.CustomUserDetails;
+import com.ironhack.MidtermProject.security.CustomUserDetails;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;

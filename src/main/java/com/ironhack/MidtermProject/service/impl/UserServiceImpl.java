@@ -1,9 +1,9 @@
-package com.ironhack.MidtermProject.repository.service.impl;
+package com.ironhack.MidtermProject.service.impl;
 
 import com.ironhack.MidtermProject.classes.Address;
 import com.ironhack.MidtermProject.model.*;
 import com.ironhack.MidtermProject.repository.*;
-import com.ironhack.MidtermProject.repository.service.interfaces.UserService;
+import com.ironhack.MidtermProject.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,4 +1,4 @@
-package com.ironhack.MidtermProject.repository.service.interfaces;
+package com.ironhack.MidtermProject.service.interfaces;
 
 import com.ironhack.MidtermProject.classes.Money;
 

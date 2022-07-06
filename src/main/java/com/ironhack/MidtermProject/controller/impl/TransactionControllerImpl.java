@@ -6,12 +6,12 @@ import com.ironhack.MidtermProject.controller.dto.TransferDTO;
 import com.ironhack.MidtermProject.controller.interfaces.TransactionController;
 
 
-import com.ironhack.MidtermProject.repository.service.interfaces.TransactionService;
+import com.ironhack.MidtermProject.service.interfaces.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import security.CustomUserDetails;
+import com.ironhack.MidtermProject.security.CustomUserDetails;
 
 import javax.validation.Valid;
 
